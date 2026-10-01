@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isaac Vigué Mercader — for Andy Was Right</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --moss:#2F4A2C; --moss-deep:#22371F;
+  --lichen:#C7D98A; --bloom:#F2A3C9;
+  --paper:#EDF0E5; --ink:#1A2318; --ink-soft:#4A5646;
+  --line:rgba(26,35,24,.16);
+  --bg:var(--paper); --fg:var(--ink); --fg-soft:var(--ink-soft);
+  --font:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141C13; --fg:#E6EBDC; --fg-soft:#A9B5A2; --line:rgba(230,235,220,.16);
+  }
+}
+:root[data-theme="dark"]{ --bg:#141C13; --fg:#E6EBDC; --fg-soft:#A9B5A2; --line:rgba(230,235,220,.16); }
+*,*::before,*::after{ box-sizing:inherit; }
+html{ scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px); }
+body{ margin:0; background:var(--bg); color:var(--fg); font-family:var(--font); font-size:18px; line-height:1.55; font-optical-sizing:auto; -webkit-font-smoothing:antialiased; }
+a{ color:inherit; }
+a:focus-visible, button:focus-visible{ outline:3px solid var(--bloom); outline-offset:3px; border-radius:4px; }
+img,svg{ max-width:100%; }
+.wrap{ width:min(1180px, 100% - 48px); margin-inline:auto; }
+
+/* ---------- HERO ---------- */
+.hero{ position:relative; background:var(--moss); color:#EEF2E4; overflow:hidden; min-height:100svh; display:flex; flex-direction:column; }
+.hero::after{ /* grain */
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.22; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.top{ position:relative; z-index:3; display:flex; justify-content:space-between; align-items:center; gap:16px; padding:22px 0; }
+.mark{ font-weight:700; font-size:18px; letter-spacing:-.01em; text-decoration:none; }
+.top nav{ display:flex; gap:22px; font-size:15px; }
+.top nav a{ text-decoration:none; opacity:.85; }
+.top nav a:hover{ opacity:1; text-decoration:underline; text-underline-offset:4px; }
+.pill{ display:inline-block; border:1.5px solid rgba(238,242,228,.5); border-radius:999px; padding:6px 14px; font-size:14px; }
+
+.organism{ position:absolute; z-index:1; right:-8vw; top:8vh; width:min(64vw,760px); aspect-ratio:1; pointer-events:none; }
+.organism .b1{ position:absolute; inset:0; background:var(--lichen); border-radius:58% 42% 63% 37% / 45% 58% 42% 55%; animation:morph 18s ease-in-out infinite alternate; }
+.organism .b2{ position:absolute; width:34%; aspect-ratio:1; left:2%; bottom:6%; background:var(--bloom); border-radius:42% 58% 37% 63% / 60% 40% 60% 40%; animation:morph2 13s ease-in-out infinite alternate; }
+@keyframes morph{
+  0%{ border-radius:58% 42% 63% 37% / 45% 58% 42% 55%; transform:rotate(0deg) scale(1); }
+  50%{ border-radius:38% 62% 45% 55% / 62% 38% 62% 38%; transform:rotate(14deg) scale(1.04); }
+  100%{ border-radius:66% 34% 52% 48% / 40% 64% 36% 60%; transform:rotate(-8deg) scale(.97); }
+}
+@keyframes morph2{
+  0%{ border-radius:42% 58% 37% 63% / 60% 40% 60% 40%; transform:translate(0,0); }
+  100%{ border-radius:63% 37% 58% 42% / 38% 62% 38% 62%; transform:translate(12%,-10%); }
+}
+.hero-body{ position:relative; z-index:2; flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding-top:48px; padding-bottom:7vh; }
+.stack{ margin:0; font-weight:800; line-height:.84; letter-spacing:-.045em; font-size:clamp(84px, 17vw, 236px); }
+.stack span{ display:block; }
+.stack span:nth-child(2){ padding-left:.55em; font-weight:300; letter-spacing:-.03em; }
+.stack span:nth-child(3){ color:var(--lichen); }
+@media (prefers-reduced-motion: no-preference){
+  .stack span{ opacity:0; transform:translateY(.25em); animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
+  .stack span:nth-child(2){ animation-delay:.12s; } .stack span:nth-child(3){ animation-delay:.24s; }
+  @keyframes rise{ to{ opacity:1; transform:none; } }
+}
+@media (prefers-reduced-motion: reduce){ .organism .b1,.organism .b2{ animation:none; } }
+.intro{ display:flex; flex-direction:column; gap:26px; margin-top:36px; }
+.intro p{ margin:0; font-size:clamp(19px,1.7vw,23px); line-height:1.4; max-width:30em; }
+.cta-row{ display:flex; flex-wrap:wrap; gap:12px; }
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:14px 22px; border-radius:999px; font-weight:600; font-size:16px; text-decoration:none; transition:transform .15s ease; }
+.btn:hover{ transform:translateY(-2px); }
+.btn-light{ background:#EEF2E4; color:var(--moss-deep); }
+.btn-line{ border:1.5px solid rgba(238,242,228,.6); color:#EEF2E4; background:var(--moss); }
+
+/* ---------- SECTIONS ---------- */
+section{ padding:112px 0; border-top:1px solid var(--line); }
+section:first-of-type{ border-top:0; }
+h2{ font-weight:750; font-size:clamp(40px,6vw,76px); line-height:.98; letter-spacing:-.035em; margin:0 0 20px; max-width:14em; }
+.lede{ font-size:clamp(19px,1.6vw,22px); color:var(--fg-soft); max-width:36em; margin:0 0 56px; }
+
+/* who */
+.who{ display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:start; }
+.who p.big{ font-size:clamp(24px,2.5vw,33px); line-height:1.3; letter-spacing:-.015em; margin:0; font-weight:400; }
+.facts{ display:grid; gap:0; margin:0; }
+.facts div{ display:grid; grid-template-columns:9em 1fr; gap:16px; padding:14px 0; border-bottom:1px solid var(--line); font-size:16px; }
+.facts dt{ color:var(--fg-soft); }
+.facts dd{ margin:0; font-weight:500; }
+
+/* three sides */
+.sides{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.side{ position:relative; padding:34px 30px 30px; border-radius:28px; overflow:hidden; }
+.side:nth-child(1){ background:var(--moss); color:#EEF2E4; border-radius:28px 90px 28px 28px; }
+.side:nth-child(2){ background:var(--lichen); color:var(--ink); border-radius:90px 28px 28px 28px; }
+.side:nth-child(3){ background:var(--bloom); color:var(--ink); border-radius:28px 28px 90px 28px; }
+.side h3{ font-size:30px; line-height:1.02; letter-spacing:-.025em; margin:0 0 12px; font-weight:750; }
+.side .claim{ font-size:19px; line-height:1.35; margin:0 0 22px; }
+.side ul{ margin:0; padding:0; list-style:none; font-size:15.5px; line-height:1.45; }
+.side li{ padding:11px 0; border-top:1px solid currentColor; border-top-color:color-mix(in srgb, currentColor 25%, transparent); }
+
+/* fit with andy */
+.fit{ margin:0; padding:0; list-style:none; }
+.fit li{ display:grid; grid-template-columns:minmax(220px,.9fr) 1.4fr; gap:40px; padding:30px 0; border-top:1px solid var(--line); }
+.fit li:last-child{ border-bottom:1px solid var(--line); }
+.fit .svc{ font-size:clamp(24px,2.4vw,32px); font-weight:700; letter-spacing:-.02em; line-height:1.08; }
+.fit p{ margin:0; font-size:18px; max-width:34em; }
+.fit .note{ font-size:15px; color:var(--fg-soft); margin-top:22px; }
+
+/* experience timeline */
+.xp{ display:grid; grid-template-columns:.8fr 1.4fr; gap:56px; }
+.company{ font-size:clamp(30px,3.4vw,44px); font-weight:750; letter-spacing:-.03em; line-height:1; margin:0 0 10px; }
+.company-meta{ color:var(--fg-soft); margin:0 0 26px; font-size:16px; }
+.roles{ list-style:none; margin:0; padding:0 0 0 22px; border-left:3px solid var(--lichen); }
+.roles li{ position:relative; padding:0 0 22px; }
+.roles li::before{ content:""; position:absolute; left:-31px; top:6px; width:15px; height:15px; border-radius:50%; background:var(--bg); border:3px solid var(--moss); }
+:root[data-theme="dark"] .roles li::before{ border-color:var(--lichen); }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .roles li::before{ border-color:var(--lichen); } }
+.roles strong{ display:block; font-size:20px; font-weight:650; }
+.roles span{ font-size:15px; color:var(--fg-soft); }
+.accounts{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.accounts span{ border:1.5px solid var(--fg); border-radius:999px; padding:5px 14px; font-size:15px; font-weight:600; }
+.wins{ list-style:none; margin:0; padding:0; }
+.wins li{ padding:18px 0; border-top:1px solid var(--line); font-size:17px; }
+.wins li:first-child{ border-top:0; padding-top:0; }
+.wins b{ display:block; font-size:19px; font-weight:650; margin-bottom:2px; }
+
+/* education + languages */
+.edu-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:64px; margin-top:44px; }
+.edu{ list-style:none; margin:0; padding:0; }
+.edu li{ display:grid; grid-template-columns:5.5em 1fr; gap:18px; padding:16px 0; border-top:1px solid var(--line); }
+.edu .yr{ color:var(--fg-soft); font-variant-numeric:tabular-nums; font-size:16px; padding-top:2px; }
+.edu strong{ display:block; font-weight:650; font-size:18px; line-height:1.3; }
+.edu em{ font-style:normal; color:var(--fg-soft); font-size:15.5px; }
+h3.sub{ font-size:24px; letter-spacing:-.02em; margin:0 0 14px; font-weight:700; }
+.langs{ list-style:none; margin:0 0 40px; padding:0; }
+.langs li{ display:flex; align-items:center; gap:14px; padding:10px 0; font-size:17px; }
+.langs .name{ width:5.5em; font-weight:600; }
+.meter{ flex:1; height:10px; border-radius:99px; background:var(--line); overflow:hidden; max-width:180px; }
+.meter i{ display:block; height:100%; border-radius:99px; background:var(--moss); }
+:root[data-theme="dark"] .meter i{ background:var(--lichen); }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .meter i{ background:var(--lichen); } }
+.langs .lvl{ font-size:14.5px; color:var(--fg-soft); min-width:7.5em; }
+.beyond p{ margin:0 0 12px; font-size:17px; }
+
+/* contact */
+.contact{ background:var(--lichen); color:var(--ink); position:relative; overflow:hidden; border-top:0; }
+.contact .blob{ position:absolute; right:-120px; bottom:-160px; width:520px; aspect-ratio:1; background:var(--bloom); border-radius:58% 42% 63% 37% / 45% 58% 42% 55%; opacity:.9; }
+.contact .wrap{ position:relative; z-index:1; }
+.contact h2{ font-size:clamp(52px,9vw,128px); line-height:.9; max-width:9em; }
+.contact p{ font-size:20px; max-width:30em; margin:0 0 34px; }
+.links{ display:flex; flex-wrap:wrap; gap:12px; }
+.links a{ background:var(--ink); color:var(--paper); padding:14px 22px; border-radius:999px; text-decoration:none; font-weight:600; font-size:16px; transition:transform .15s ease; }
+.links a:hover{ transform:translateY(-2px); }
+.links a.ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
+footer{ padding:28px 0 36px; font-size:14px; color:var(--fg-soft); }
+footer .wrap{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 920px){
+  .top nav{ display:none; }
+  .who, .xp, .edu-grid{ grid-template-columns:1fr; gap:36px; }
+  .sides{ grid-template-columns:1fr; }
+  .fit li{ grid-template-columns:1fr; gap:10px; }
+  .organism{ width:72vw; right:-24vw; top:7vh; }
+  section{ padding:80px 0; }
+}
+@media (max-width: 520px){
+  body{ font-size:17px; }
+  .wrap{ width:calc(100% - 36px); }
+  .pill{ display:none; }
+  .facts div{ grid-template-columns:1fr; gap:2px; }
+  .edu li{ grid-template-columns:1fr; gap:4px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="organism" aria-hidden="true"><div class="b1"></div><div class="b2"></div></div>
+  <div class="wrap top">
+    <a class="mark" href="#">Isaac Vigué Mercader</a>
+    <nav aria-label="Sections">
+      <a href="#who">Who</a><a href="#sides">Profile</a><a href="#andy">Fit with Andy</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    </nav>
+    <span class="pill">Open application for Andy Was Right</span>
+  </div>
+  <div class="wrap hero-body">
+    <h1 class="stack" aria-label="Das ist Isaac"><span>Das</span><span>ist</span><span>Isaac.</span></h1>
+    <div class="intro">
+      <p>Media strategist who runs the account day to day and never stops asking what the story is. Four years at Havas Media on Puma, Swarovski and Vueling. Now moving to Zürich.</p>
+      <div class="cta-row">
+        <a class="btn btn-light" href="mailto:isaacvigue@gmail.com?subject=Hi%20Isaac%20%E2%80%94%20from%20Andy%20Was%20Right">Write to Isaac</a>
+        <a class="btn btn-line" href="#experience">See experience</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="who">
+    <div class="wrap who">
+      <p class="big">I help brands get their media strategy right across markets, and I look at every plan through a brand lens. At Havas Media Spain I went from trainee to International Media Manager, working between client teams and agency teams on offline-first strategies across TV sponsorship, DOOH and digital. I'm ambitious, I like working in a team, and I want to keep learning from people who make great content.</p>
+      <dl class="facts">
+        <div><dt>Role</dt><dd>International Media Manager</dd></div>
+        <div><dt>Last agency</dt><dd>Havas Media Spain, Barcelona</dd></div>
+        <div><dt>Key accounts</dt><dd>Puma, Swarovski, Vueling</dd></div>
+        <div><dt>Moving</dt><dd>Barcelona to Zürich</dd></div>
+        <div><dt>Status</dt><dd>EU citizen, available now</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="sides">
+    <div class="wrap">
+      <h2>Three sides, one profile.</h2>
+      <p class="lede">Strategy, client work and creativity usually sit in different people. In my case they come together, and that's what I'd bring to Andy.</p>
+      <div class="sides">
+        <article class="side">
+          <h3>Planning &amp; strategy</h3>
+          <p class="claim">I build media strategies that hold up in more than one market.</p>
+          <ul>
+            <li>Multi-market, offline-first strategies combining TV sponsorship, DOOH and digital.</li>
+            <li>Competitive analysis and benchmarking behind every recommendation.</li>
+            <li>Havas' Marketing Impact Model to link media decisions to brand impact.</li>
+          </ul>
+        </article>
+        <article class="side">
+          <h3>Accounts &amp; clients</h3>
+          <p class="claim">I'm at ease in the client meeting and in the day-to-day that follows it.</p>
+          <ul>
+            <li>Daily work with client stakeholders and international teams on global brands.</li>
+            <li>Briefings and quarterly business reviews that turn results into clear next steps.</li>
+            <li>Coordinating rollouts and sports partnerships across teams and markets.</li>
+          </ul>
+        </article>
+        <article class="side">
+          <h3>Creative at heart</h3>
+          <p class="claim">I'm the media person who always wants to know what the story is.</p>
+          <ul>
+            <li>Branded Content at Miami Ad School, and a degree specialised in Marketing and Brand Strategy.</li>
+            <li>LVMH programme covering creation, branding, retail and customer experience.</li>
+            <li>Writing <em>Confluentia Vocis</em>, my newsletter on communication and media.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="andy">
+    <div class="wrap">
+      <h2>Where I'd plug into Andy.</h2>
+      <p class="lede">Andy goes all the way from idea to impact. Here's what I'd add at each stop.</p>
+      <ul class="fit">
+        <li><div class="svc">Consulting &amp; Strategy</div><p>Strategies grounded in research and benchmarking, designed to work across several markets at once, and explained so the client can act on them.</p></li>
+        <li><div class="svc">Campaigning, Distribution &amp; Paid Media</div><p>Four years deciding where a story needs to run to be seen: TV sponsorship, DOOH and digital, planned together rather than channel by channel.</p></li>
+        <li><div class="svc">Listening &amp; Research</div><p>Competitive analysis and benchmarking as the starting point of every plan, so ideas are built on what the market is actually doing.</p></li>
+        <li><div class="svc">Creation &amp; Ideation</div><p>A brand-strategy background and branded content training, so I can write sharp briefs, work closely with creatives and help bring ideas to the client.</p></li>
+      </ul>
+      <p class="note">And on the client side: the account management habits of a large network agency, from QBRs to multi-market coordination, ready for Andy's bigger mandates.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap xp">
+      <div>
+        <p class="company">Havas Media Spain</p>
+        <p class="company-meta">Barcelona, joined as a trainee straight after graduating</p>
+        <ol class="roles" reversed>
+          <li><strong>International Media Manager</strong><span>09/2025 – 08/2026</span></li>
+          <li><strong>Media Development Expert</strong><span>08/2022 – 08/2025</span></li>
+        </ol>
+        <div class="accounts" aria-label="Key accounts"><span>Puma</span><span>Swarovski</span><span>Vueling</span></div>
+      </div>
+      <ul class="wins">
+        <li><b>Client and agency, one strategy.</b>Worked daily with client stakeholders and international teams, keeping everyone aligned on a single media strategy from planning to execution.</li>
+        <li><b>Media strategy across disciplines.</b>Designed multi-market, offline-first strategies combining TV sponsorship, DOOH and digital formats.</li>
+        <li><b>Reviews and recommendations.</b>Prepared briefings and quarterly business reviews that turn performance and context into clear next steps.</li>
+        <li><b>Insight behind decisions.</b>Led competitive analysis, benchmarking and research, using Havas' Marketing Impact Model to link media to brand impact.</li>
+        <li><b>International rollout.</b>Supported the design and deployment of media strategies across markets, with a strong focus on offline ecosystems.</li>
+        <li><b>Sports partnerships.</b>Followed the rollout of sports partnerships and sponsorships, from brand alignment to cross-team coordination.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <h2>Learning, then and now.</h2>
+      <div class="edu-grid">
+        <ul class="edu">
+          <li><span class="yr">2024</span><div><strong>Branded Content</strong><em>Miami Ad School</em></div></li>
+          <li><span class="yr">2022</span><div><strong>Luxury Industry, Sustainability, Creation &amp; Branding, Retail &amp; CX</strong><em>LVMH</em></div></li>
+          <li><span class="yr">2019</span><div><strong>BBA, Erasmus exchange semester</strong><em>University of the West of Scotland</em></div></li>
+          <li><span class="yr">2017–21</span><div><strong>Management of Business and Technology</strong><em>La Salle, Universitat Ramon Llull. Specialisation in Marketing and Brand Strategy</em></div></li>
+        </ul>
+        <div>
+          <h3 class="sub">Languages</h3>
+          <ul class="langs">
+            <li><span class="name">Spanish</span><span class="meter"><i style="width:100%"></i></span><span class="lvl">Native</span></li>
+            <li><span class="name">Catalan</span><span class="meter"><i style="width:100%"></i></span><span class="lvl">Native</span></li>
+            <li><span class="name">English</span><span class="meter"><i style="width:85%"></i></span><span class="lvl">C1, professional</span></li>
+            <li><span class="name">German</span><span class="meter"><i style="width:20%"></i></span><span class="lvl">A1, learning</span></li>
+            <li><span class="name">French</span><span class="meter"><i style="width:12%"></i></span><span class="lvl">Beginner</span></li>
+          </ul>
+          <div class="beyond">
+            <h3 class="sub">Beyond work</h3>
+            <p>Author of <em>Confluentia Vocis</em>, a Substack newsletter on communication and media, launching in 2026.</p>
+            <p>I build AI-assisted research workflows with LLMs and Python.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="blob" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2>Ready to become an Andy.</h2>
+      <p>If there's an opening now or later, I'd love to talk. Happy to help wherever the team needs me.</p>
+      <div class="links">
+        <a href="mailto:isaacvigue@gmail.com?subject=Hi%20Isaac%20%E2%80%94%20from%20Andy%20Was%20Right">isaacvigue@gmail.com</a>
+        <a class="ghost" href="tel:+34639290931">+34 639 290 931</a>
+        <a class="ghost" href="https://linkedin.com/in/isaacvigue" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Isaac Vigué Mercader, curriculum vitae 2026</span>
+    <span>Barcelona to Zürich</span>
+  </div>
+</footer>
+</body>
+</html>
